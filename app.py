@@ -12,6 +12,14 @@ def main():
 def hello():
     return render_template('tweentest.html')
 
+@app.route('/modals')
+def modals():
+	return render_template('modals.html')
+
+@app.route('/callback')
+def modals():
+	return render_template('callback.html')
+
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
