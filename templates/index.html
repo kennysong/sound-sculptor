@@ -47,15 +47,15 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner" style="background-color:rgba(238, 238, 238, .5);">
-        <div class="container">
+        <div class="container" style="height: 100">
           <!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a> -->
-          <a class="brand" href="#" onclick="changeTo('intro');$('#homenav').toggleClass('active');$('#aboutnav').removeClass('active');" style="color:black;">SoundSculptor</a>
+          <a class="brand" href="#" onclick="changeTo('intro');$('#homenav').toggleClass('active');$('#aboutnav').removeClass('active');" style="color:black;"><img src="../static/img/logo.png"></a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
+            <ul class="nav" style="font-size: 22px">
               <li id="homenav" class="active"><a href="#" onclick="changeTo('intro');$('#homenav').addClass('active');$('#aboutnav').removeClass('active');" style="color:black;">Home</a></li>
               <li id="aboutnav"><a href="#about" onclick="changeTo('about');$('#aboutnav').addClass('active');$('#homenav').removeClass('active');" style="color:black;">About</a></li>
             </ul>
@@ -64,6 +64,9 @@
       </div>
     </div>
     
+    <br/>
+    <br/>
+
     <div class="container-fluid">
     
       <br/>
