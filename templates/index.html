@@ -39,11 +39,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a> -->
-          <a class="brand" href="#" onclick="$('#intro').show('slow');" style="color:black;">SoundSculptor</a>
+          <a class="brand" href="#" onclick="$('#intro').show('slow');$('#about').hide('slide');$('#intro').show('slide');$('#homenav').toggleClass('active');$('#aboutnav').removeClass('active');" style="color:black;">SoundSculptor</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#" onclick="$('#intro').show('slow');" style="color:black;">Home</a></li>
-              <li><a href="#about" style="color:black;">About</a></li>
+              <li id="homenav" class="active"><a href="#" onclick="$('#about').hide('slide');$('#intro').show('slide');$('#homenav').addClass('active');$('#aboutnav').removeClass('active');" style="color:black;">Home</a></li>
+              <li id="aboutnav"><a href="#about" onclick="$('#intro').hide('slide');$('#about').show('slide');$('#aboutnav').addClass('active');$('#homenav').removeClass('active');" style="color:black;">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -67,6 +67,16 @@
                 <br/>
                 <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:340px;margin-left:auto;background-color:white;color:gray;" type="button">VIDEO GOES HERE</button>
               </div>
+            </p>
+            </center>
+        </div>
+
+        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);display:none;color:white;" id="about">
+            <center>
+              <h1>About SoundScultor</h1>
+            <hr style="background-color:rgba(238, 238, 238, .5);">
+            <p>
+              Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl.
             </p>
             </center>
         </div>
