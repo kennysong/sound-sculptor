@@ -19,11 +19,11 @@
       function changeTo (newHero) {
         var heros = ['main', 'intro', 'about'];
         for (var i in heros) {
-          if (newHero === i) {
+          if (newHero === heros[i]) {
             $('#' + newHero).show('slow');
           }
           else {
-           $('#' + i).hide('slow'); 
+           $('#' + heros[i]).hide('slow'); 
           }
         }
       }
