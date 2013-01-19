@@ -16,6 +16,7 @@
 
   <script type="text/javascript" src="http://code.createjs.com/easeljs-0.5.0.min.js"></script>
   <script type="text/javascript" src="http://code.createjs.com/tweenjs-0.3.0.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   <!--<script type="text/javascript" src="../src/tweenjs/Tween.js"></script>
   <script type="text/javascript" src="../src/tweenjs/Ease.js"></script>-->
 
@@ -25,22 +26,33 @@
     <script>
         var canvas;
         var stage;
-        var tweens;
-        var activeCount;
+        // var tweens;
+        // var activeCount;
         var circleCount = 20;
         var text;
+        var pointerVisuals = [];
 
-        function init() {
-          if (window.top != window) {
-                document.getElementById("header").style.display = "none";
+        function PointerVisual(coords) {
+          this.tweens = [];
+          this.activeCount = circleCount;
+
+          this.tweenComplete = function() {
+            this.activeCount--;
+          }
+
+          this.moveTo = function(coords) {
+            console.log("moving to: ");
+            console.log(coords);
+
+            for (var i=0; i<circleCount; i++) {
+              var ref = this.tweens[i].ref;
+              var tween = this.tweens[i].tween;
+              createjs.Tween.get(ref,{override:true}).to({x:coords.x,y:coords.y}, (0.5+i*0.12)*1000, createjs.Ease.elasticOut).call($.proxy(this.tweenComplete, this));
             }
+            this.activeCount = circleCount;
+          }
 
-          canvas = document.getElementById("testCanvas");
-          stage = new createjs.Stage(canvas);
-          tweens = [];
-          stage.enableMouseOver(10);
-          createjs.Touch.enable(stage);
-
+          //make the concentric circles:
           for (var i=0; i<circleCount; i++) {
               // draw the circle, and put it on stage:
               var circle = new createjs.Shape();
@@ -48,45 +60,65 @@
               circle.graphics.beginStroke("#113355");
               circle.graphics.drawCircle(0,0,(i+1)*4);
               circle.alpha = 1-i*0.02;
-              circle.x = Math.random()*550;
-              circle.y = Math.random()*400;
+              circle.x = coords.x;
+              circle.y = coords.y;
               circle.compositeOperation = "lighter";
 
-              var tween = createjs.Tween.get(circle).to({x:275,y:200}, (0.5+i*0.12)*1000, createjs.Ease.elasticOut).call(tweenComplete);
-              tweens.push({tween:tween, ref:circle});
+              var tween = createjs.Tween.get(circle).to({x:circle.x,y:circle.y}, (0.5+i*0.12)*1000, createjs.Ease.elasticOut).call($.proxy(this.tweenComplete, this));
+              this.tweens.push({tween:tween, ref:circle});
               stage.addChild(circle);
           }
-          activeCount = circleCount;
-          stage.onMouseMove = handleMouseUp;
 
-          text = new createjs.Text("Click Anywhere to Tween", "36px Arial", "#777");
-          text.x = 350;
-          text.y = 200;
-          stage.addChild(text);
+        }
+
+        function init() {
+          if (window.top != window) {
+            document.getElementById("header").style.display = "none";
+          }
+
+          canvas = document.getElementById("interfaceCanvas");
+          stage = new createjs.Stage(canvas);
+          stage.enableMouseOver(10);
+          stage.onMouseMove = handleLeapMove;
+          createjs.Touch.enable(stage);
+
+          pointerVisuals = [
+            new PointerVisual({'x': 275, 'y': 200}),
+            new PointerVisual({'x': 475, 'y': 200}),
+            new PointerVisual({'x': 275, 'y': 400}),
+            new PointerVisual({'x': 475, 'y': 400})
+          ];
 
           createjs.Ticker.addListener(window);
         }
 
-
-        function handleMouseUp(event) {
+        function handleLeapMove(event) {
           if (text) {
             stage.removeChild(text);
             text = null;
           }
-            for (var i=0; i<circleCount; i++) {
-                var ref = tweens[i].ref;
-                var tween = tweens[i].tween;
-                createjs.Tween.get(ref,{override:true}).to({x:stage.mouseX,y:stage.mouseY}, (0.5+i*0.12)*1000, createjs.Ease.elasticOut).call(tweenComplete);
-            }
-            activeCount = circleCount;
-        }
 
-        function tweenComplete() {
-            activeCount--;
+          var coordsArr = [
+            {'x': stage.mouseX, 'y': stage.mouseY},
+            {'x': stage.mouseX + 200, 'y': stage.mouseY},
+            {'x': stage.mouseX, 'y': stage.mouseY + 200},
+            {'x': stage.mouseX + 200, 'y': stage.mouseY + 200}
+          ];
+
+          for(var i = 0; i < coordsArr.length; i++) {
+            if(pointerVisuals[i]) {
+              pointerVisuals[i].moveTo({'x': coordsArr[i].x, 'y': coordsArr[i].y});
+            }
+            else {
+              pointerVisuals.push(new PointerVisual({'x': coordsArr[i].x, 'y': coordsArr[i].y}));
+            }
+          }
         }
 
         function tick() {
-            if (activeCount) { stage.update(); }
+            if (pointerVisuals[0].activeCount) { 
+              stage.update(); 
+            }
         }
 
 
@@ -99,7 +131,7 @@
       <p>This example shows how a plugin can be used to override values in TweenJS. The CSSPlugin ensures the CSS position and size parameters all receive the "px" suffix required by CSS.</p>
   </header>
 
-    <canvas id="testCanvas" width="960" height="400" style="background: #333333;"></canvas>
+    <canvas id="interfaceCanvas" width="960" height="400" style="background: #333333;"></canvas>
 
 </body>
 </html>
