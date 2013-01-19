@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Dumper - Leap</title>
+<script src="leap.js"></script>
+<script>
+var pausedFrame = null;
+var latestFrame = null;
+window.onkeypress = function(e) {
+	if (e.charCode == 32) {
+		if (pausedFrame == null) {
+			pausedFrame = latestFrame;
+		} else {
+			pausedFrame = null;
+		}
+	}
+}
+Leap.loop(function(frame) {
+	latestFrame = frame;
+	var pointables = new Array();
+	for (var i = 0; i < ((pausedFrame || latestFrame).pointables).length; i++) {
+		var coords = {};
+		var pos = ((pausedFrame || latestFrame).pointables)[i].tipPosition;
+		coords['x'] = pos[0];
+		coords['y'] = pos[1];
+		coords['z'] = pos[2];
+		pointables[i] = coords;
+	}
+	var stringed = "";
+	for (var i in pointables) {
+		stringed += JSON.stringify(pointables[i]);
+	}
+	document.getElementById('out').innerHTML = (pausedFrame ? "<p><b>PAUSED</b></p>" : "") + stringed;
+})
+</script>
+</head>
+<body>
+<div id="out"></div>
+<div id="log"></div>
+</body>
+</html>
