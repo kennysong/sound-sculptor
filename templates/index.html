@@ -13,7 +13,7 @@
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <link href="../static/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-metro.min.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,7 +29,7 @@
     <script src="../static/js/jquery.min.js"></script>
   </head>
 
-  <body>
+  <body style="background-image:url(http://placedog.com/1920/1080);">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -39,12 +39,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">SoundSculptor</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -53,10 +52,23 @@
     
     <div class="container-fluid">
     
-
+      <br/>
       <div class="row-fluid">
-        <div class="span12 centertext">
-          Start Sculpting
+        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);">
+            <center>
+              <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:120px;margin-left:auto;background-color:white;color:gray;" type="button">Start Sculpting!</button>
+            <br/><br/>
+            <hr style="background-color:rgba(238, 238, 238, .5);">
+            <p>
+              <a class="btn btn-primary btn-large" style="background-color:white;color:gray;" onClick="$('#video').toggle('slow');">
+                Or view an example
+              </a>
+              <div id="video" style="display:none;">
+                <br/>
+                <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:340px;margin-left:auto;background-color:white;color:gray;" type="button">VIDEO GOES HERE</button>
+              </div>
+            </p>
+            </center>
         </div>
       </div>
     
