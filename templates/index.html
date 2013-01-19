@@ -39,11 +39,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a> -->
-          <a class="brand" href="#" onclick="$('#intro').show('slow');$('#about').hide('slide');$('#intro').show('slide');$('#homenav').toggleClass('active');$('#aboutnav').removeClass('active');" style="color:black;">SoundSculptor</a>
+          <a class="brand" href="#" onclick="$('#intro').show('slow');$('#about').hide('slide');$('#intro').show('slide');$('#homenav').toggleClass('active');$('#aboutnav').removeClass('active');$('#main').hide('slide');" style="color:black;">SoundSculptor</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li id="homenav" class="active"><a href="#" onclick="$('#about').hide('slide');$('#intro').show('slide');$('#homenav').addClass('active');$('#aboutnav').removeClass('active');" style="color:black;">Home</a></li>
-              <li id="aboutnav"><a href="#about" onclick="$('#intro').hide('slide');$('#about').show('slide');$('#aboutnav').addClass('active');$('#homenav').removeClass('active');" style="color:black;">About</a></li>
+              <li id="homenav" class="active"><a href="#" onclick="$('#about').hide('slide');$('#intro').show('slide');$('#homenav').addClass('active');$('#aboutnav').removeClass('active');$('#main').hide('slide');" style="color:black;">Home</a></li>
+              <li id="aboutnav"><a href="#about" onclick="$('#intro').hide('slide');$('#about').show('slide');$('#aboutnav').addClass('active');$('#homenav').removeClass('active');$('#main').hide('slide');" style="color:black;">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -56,7 +56,7 @@
       <div class="row-fluid">
         <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);" id="intro">
             <center>
-              <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:120px;margin-left:auto;background-color:white;color:gray;" type="button" onclick="$('#intro').toggle('slow');">Start Sculpting!</button>
+              <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:120px;margin-left:auto;background-color:white;color:gray;" type="button" onclick="$('#intro').toggle('slow');$('#main').show('slide');">Start Sculpting!</button>
             <br/><br/>
             <hr style="background-color:rgba(238, 238, 238, .5);">
             <p>
@@ -86,24 +86,40 @@
             </center>
             </p>
         </div>
+
+
+        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);display:none;color:white;" id="main">
+            <h1 id="output">Hello</h1>
+            <h1>HELLO</h1>
+        </div>
       </div>
     
 
     </div> <!-- /container -->
 
-    <script src="../static/js/jquery.js"></script>
-    <script src="../static/js/bootstrap-transition.js"></script>
-    <script src="../static/js/bootstrap-alert.js"></script>
-    <script src="../static/js/bootstrap-modal.js"></script>
-    <script src="../static/js/bootstrap-dropdown.js"></script>
-    <script src="../static/js/bootstrap-scrollspy.js"></script>
-    <script src="../static/js/bootstrap-tab.js"></script>
-    <script src="../static/js/bootstrap-tooltip.js"></script>
-    <script src="../static/js/bootstrap-popover.js"></script>
-    <script src="../static/js/bootstrap-button.js"></script>
-    <script src="../static/js/bootstrap-collapse.js"></script>
-    <script src="../static/js/bootstrap-carousel.js"></script>
-    <script src="../static/js/bootstrap-typeahead.js"></script>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/leap.js"></script>
+    <script>
+      var latestFrame = null;
+      var i = 0;
+      Leap.loop(function(frame) {
+        latestFrame = frame;
+        var pointables = new Array();
+        for (var i = 0; i < latestFrame.pointables.length; i++) {
+          var coords = {};
+          var pos = (latestFrame.pointables)[i].tipPosition;
+          coords['x'] = pos[0];
+          coords['y'] = pos[1];
+          coords['z'] = pos[2];
+          pointables[i] = coords;
+        }
+        var stringed = "";
+        for (var i in pointables) {
+          stringed += JSON.stringify(pointables[i]);
+        }
+        $('#output').text(stringed);
+      })
+    </script>
 
   </body>
 </html>
