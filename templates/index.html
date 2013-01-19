@@ -29,21 +29,21 @@
     <script src="../static/js/jquery.min.js"></script>
   </head>
 
-  <body style="background-image:url(http://placedog.com/1920/1080);">
+  <body style="background-color:black; ">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
+      <div class="navbar-inner" style="background-color:rgba(238, 238, 238, .5);">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">SoundSculptor</a>
+          </a> -->
+          <a class="brand" href="#" onclick="$('#intro').show('slow');" style="color:black;">SoundSculptor</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
+              <li class="active"><a href="#" onclick="$('#intro').show('slow');" style="color:black;">Home</a></li>
+              <li><a href="#about" style="color:black;">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -54,9 +54,9 @@
     
       <br/>
       <div class="row-fluid">
-        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);">
+        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);" id="intro">
             <center>
-              <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:120px;margin-left:auto;background-color:white;color:gray;" type="button">Start Sculpting!</button>
+              <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:120px;margin-left:auto;background-color:white;color:gray;" type="button" onclick="$('#intro').toggle('slow');">Start Sculpting!</button>
             <br/><br/>
             <hr style="background-color:rgba(238, 238, 238, .5);">
             <p>
