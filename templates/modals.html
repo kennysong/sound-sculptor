@@ -127,7 +127,7 @@
               <h3>Share your song!</h3>
             </div>
             <div class="modal-body">
-              <p>Upload to Soundcloud!</p>
+              <a href="#" onclick="soundCloudAuth();"><img src="../static/img/connectwithsc.png" alt="connect with SoundCloud"></a>
               <p>Save to Dropbox!</p>
               <p>Make a new song!</p>
             </div>
@@ -141,6 +141,7 @@
     </div> <!-- /container -->
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/leap.js"></script>
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
     <script>
       var latestFrame = null;
       var i = 0;
@@ -261,6 +262,23 @@
         }
 
 
+    </script>
+
+    <script>
+    function soundCloudAuth() {
+      // initialize client with app credentials
+      SC.initialize({
+        client_id: 'c62653f616ed117b1d19068691b24234',
+        redirect_uri: '/callback'
+      });
+
+      // initiate auth popup
+      SC.connect(function() {
+        SC.get('/me', function(me) { 
+          alert('Hello, ' + me.username); 
+        });
+      });
+    }
     </script>
 
   </body>

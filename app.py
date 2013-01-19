@@ -17,7 +17,7 @@ def modals():
 	return render_template('modals.html')
 
 @app.route('/callback')
-def modals():
+def back():
 	return render_template('callback.html')
 
 if __name__ == '__main__':
