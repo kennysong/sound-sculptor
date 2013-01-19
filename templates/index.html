@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sound Sculptor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/main.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../static/css/bootstrap-metro.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../static/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../static/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../static/ico/apple-touch-icon-57-precomposed.png">
+               <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.png" />
+
+    <script src="../static/js/jquery.min.js"></script>
+  </head>
+
+  <body style="background-color:black; ">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner" style="background-color:rgba(238, 238, 238, .5);">
+        <div class="container">
+          <!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a> -->
+          <a class="brand" href="#" onclick="$('#intro').show('slow');$('#about').hide('slide');$('#intro').show('slide');$('#homenav').toggleClass('active');$('#aboutnav').removeClass('active');" style="color:black;">SoundSculptor</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li id="homenav" class="active"><a href="#" onclick="$('#about').hide('slide');$('#intro').show('slide');$('#homenav').addClass('active');$('#aboutnav').removeClass('active');" style="color:black;">Home</a></li>
+              <li id="aboutnav"><a href="#about" onclick="$('#intro').hide('slide');$('#about').show('slide');$('#aboutnav').addClass('active');$('#homenav').removeClass('active');" style="color:black;">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-fluid">
+    
+      <br/>
+      <div class="row-fluid">
+        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);" id="intro">
+            <center>
+              <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:120px;margin-left:auto;background-color:white;color:gray;" type="button" onclick="$('#intro').toggle('slow');">Start Sculpting!</button>
+            <br/><br/>
+            <hr style="background-color:rgba(238, 238, 238, .5);">
+            <p>
+              <a class="btn btn-primary btn-large" style="background-color:white;color:gray;" onClick="$('#video').toggle('slow');">
+                Or view an example
+              </a>
+              <div id="video" style="display:none;">
+                <br/>
+                <button class="btn btn-large btn-primary" style="width:60%;font-size:250%;height:340px;margin-left:auto;background-color:white;color:gray;" type="button">VIDEO GOES HERE</button>
+              </div>
+            </p>
+            </center>
+        </div>
+
+        <div class="hero-unit" style="background-color:rgba(238, 238, 238, .5);display:none;color:white;" id="about">
+            <center>
+              <h1>About SoundSculptor</h1>
+            <hr style="background-color:rgba(238, 238, 238, .5);">
+            <p>
+              Created using the Leap Motion, Web Audio, SoundCloud, and Dropbox APIs, SoundSculptor allows anyone to invent and record music on the spot just by using their hands. Upload your masterpiece to SoundCloud right after your sculpt it with simple hand motion.
+            </p>
+            <hr style="background-color:rgba(238, 238, 238, .5);">
+            <p>
+             <img src="http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/48x48/soundcloud.png"> 
+             <img src="http://files.softicons.com/download/social-media-icons/flat-social-icons-by-lokas-software/png/48x48/facebook.png">
+             <img src="http://files.softicons.com/download/social-media-icons/simple-icons-by-dan-leech/png/48x48/dropbox.png">
+            </center>
+            </p>
+        </div>
+      </div>
+    
+
+    </div> <!-- /container -->
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/bootstrap-transition.js"></script>
+    <script src="../static/js/bootstrap-alert.js"></script>
+    <script src="../static/js/bootstrap-modal.js"></script>
+    <script src="../static/js/bootstrap-dropdown.js"></script>
+    <script src="../static/js/bootstrap-scrollspy.js"></script>
+    <script src="../static/js/bootstrap-tab.js"></script>
+    <script src="../static/js/bootstrap-tooltip.js"></script>
+    <script src="../static/js/bootstrap-popover.js"></script>
+    <script src="../static/js/bootstrap-button.js"></script>
+    <script src="../static/js/bootstrap-collapse.js"></script>
+    <script src="../static/js/bootstrap-carousel.js"></script>
+    <script src="../static/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>

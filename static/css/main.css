@@ -1,0 +1,19 @@
+div#start-button {
+	height: 100%;
+	width: 350px;	
+	margin-left: auto;
+	margin-right: auto;
+	top: 50%;
+	margin-top: -50px;
+	text-align: center;
+}
+
+div.interface {
+	background-image: url('../static/img/background.png');
+	background-repeat: repeat-x;
+	text-align: center;
+}
+
+.centertext {
+	text-align: center;
+}
