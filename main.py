@@ -37,8 +37,12 @@ class AboutHandler(BaseHandler):
 	def get(self):
 		self.render('about.html')
 
+class SoundCloudHandler(BaseHandler):
+	def get(self):
+		self.render('soundcloud-testing.html')
 
 app = webapp2.WSGIApplication([('/', IndexHandler),
 							   ('/about', AboutHandler),
+							   ('/soundcloud', SoundCloudHandler)
 							  ],
                               debug=True)
