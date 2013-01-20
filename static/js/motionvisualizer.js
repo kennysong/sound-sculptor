@@ -47,9 +47,8 @@ function handleLeapMove(leapCoords) {
     }
   }
 
-  //this loop runs when there are fewer pointers this frame than last
+  //this loop runs when there are fewer pointers in this frame than last
   for(var i = coords.length; i < pointerVisuals.length; i++) {
-    console.log('about to destroy visual ' + i);
     pointerVisuals[i].destroy();
     pointerVisuals.splice(i, 1);
   }
@@ -61,11 +60,6 @@ function handleLeapMove(leapCoords) {
 
 function leapCoordsToPixels(leapCoords) {
   var result = [];
-
-  // if(leapCoords[0]) {
-  //   console.log('x: ' + leapCoords[0].x + ', y: ' + leapCoords[0].y);
-  //   console.log("canvas_width" + (CANVAS_WIDTH));
-  // }
 
   var coords, newx, newy;
   for(var i = 0; i < leapCoords.length; i++) {
@@ -93,9 +87,6 @@ function PointerVisual(coords) {
   }
 
   this.moveTo = function(coords) {
-    // console.log("moving to: ");
-    // console.log(coords);
-
     for (var i=0; i<circleCount; i++) {
       var ref = this.tweens[i].ref;
       var tween = this.tweens[i].tween;
@@ -128,17 +119,82 @@ function PointerVisual(coords) {
   }
 }
 
+
+var oldPointables;
 Leap.loop(function(frame) {
-  var pointables = new Array();
+  var newPointables = new Array();
   for (var i = 0; i < frame.pointables.length; i++) {
     var coords = {};
     var pos = (frame.pointables)[i].tipPosition;
     coords['x'] = pos[0];
     coords['y'] = pos[1];
-    coords['z'] = pos[2];
-    pointables[i] = coords;
+    newPointables[i] = coords;
+  }
+
+  if(oldPointables && newPointables.length == oldPointables.length) {
+    newPointables = makePointableIndicesConsistent(newPointables, oldPointables);
   }
 
   if(inited)
-    handleLeapMove(pointables);
+    handleLeapMove(newPointables);
+
+  oldPointables = newPointables;
 });
+
+//ensure that newPointables[i] corresponds to the same finger of the user that oldPointables[i] did
+function makePointableIndicesConsistent(newPointables, oldPointables) {
+  var MAX_INT = 4294967295;
+  var distancesArr = [];
+
+  for(var i = 0; i < newPointables.length; i++) {
+    var curDistances = new Array();
+    for(var j = 0; j < oldPointables.length; j++) {
+      curDistances.push(cartesianDistance(newPointables[i], oldPointables[j]));
+    }
+    distancesArr.push(curDistances);
+  }
+
+  var oldIndexToNewIndex = {}; 
+  var indicesOfUnusedNewPointables = {};
+  for(var i = 0; i < newPointables.length; i++) {
+    indicesOfUnusedNewPointables[i] = true;
+  }
+
+  for(var i = 0; i < distancesArr.length; i++) {
+    var minDistance = MAX_INT;
+    var indexOfMinDistance = 0;
+    for(var j = 0; j < distancesArr[i].length; j++) {
+      if(oldIndexToNewIndex.hasOwnProperty(j))
+        continue; //we already mapped this oldPointable index to a newPointable index
+
+      if(distancesArr[i][j] < minDistance) {
+        minDistance = distancesArr[i][j];
+        indexOfMinDistance = j;
+      }
+    }
+    oldIndexToNewIndex[indexOfMinDistance] = i;
+    delete indicesOfUnusedNewPointables[i];
+  }
+
+  var result = [];
+  for(var oldIndex = 0; oldIndex < oldPointables.length; oldIndex++) {
+    if(oldIndexToNewIndex[oldIndex] === undefined)
+      continue; //this can happen when there are fewer fingers in the new frame than the old
+
+    result.push(newPointables[oldIndexToNewIndex[oldIndex]]);
+  }
+
+  //in case there are more fingers in the new frame than the old:
+  for(var unusedIndex in indicesOfUnusedNewPointables) {
+    if(indicesOfUnusedNewPointables.hasOwnProperty(unusedIndex))
+      result.push(newPointables[unusedIndex]);
+  }
+
+  return result;
+}
+
+function cartesianDistance(newPointable, oldPointable) {
+  return Math.sqrt(Math.pow(newPointable.x - oldPointable.x, 2) + Math.pow(newPointable.y - oldPointable.y, 2));
+}
+
+
