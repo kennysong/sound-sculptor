@@ -264,8 +264,6 @@
     </script>
 
     <script>
-    var me = null;
-
     function soundCloudAuth() {
       // initialize client with app credentials
       SC.initialize({
@@ -278,26 +276,17 @@
         SC.get('/me', function(lme) { 
           $('#sc').html('<a href="#" class="btn btn-primary" onclick="uploadToSC();">Upload to SoundCloud</a>');
           loggedIn = true;
-          me = lme
+          me = lme;
         });
-      });
-    }
-
-    function uploadToSC() {
-      if (me) {
-        SC.connect(function() {
-          SC.record({
+        SC.record({
             start: function() {
               window.setTimeout(function() {
                 SC.recordStop();
-                SC.recordUpload({
-                  track: { title: 'This is my sound' }
-                });
+                SC.recordUpload({track: { title: 'This is my sound' }});
               }, 5000);
             }
-          }
         });
-      }
+      })
     }
     </script>
 
