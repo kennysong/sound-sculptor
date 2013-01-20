@@ -3,6 +3,7 @@ import os
 import re
 import logging
 import jinja2
+import soundcloud
 from google.appengine.api import memcache
 
 from google.appengine.ext import db
@@ -39,7 +40,11 @@ class AboutHandler(BaseHandler):
 
 class SoundCloudHandler(BaseHandler):
 	def get(self):
-		self.render('soundcloud-testing.html')
+		client = soundcloud.Client(client_id='6cb308db983912e577d2357873e896f0')
+		tracks = client.get('/tracks', order='hotness', limit=10)
+
+
+		self.render('soundcloud-testing.html', {'tracks':tracks})
 
 app = webapp2.WSGIApplication([('/', IndexHandler),
 							   ('/about', AboutHandler),
