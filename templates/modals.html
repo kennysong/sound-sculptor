@@ -127,7 +127,7 @@
               <h3>Share your song!</h3>
             </div>
             <div class="modal-body">
-              <a href="#" onclick="soundCloudAuth();"><img id="sc" src="../static/img/connectwithsc.png" alt="connect with SoundCloud"></a>
+              <a href="#" onclick="soundCloudAuth();"><div id="sc"><img src="../static/img/connectwithsc.png" alt="connect with SoundCloud"></div></a>
               <p>Save to Dropbox!</p>
               <p>Make a new song!</p>
             </div>
@@ -264,6 +264,8 @@
     </script>
 
     <script>
+    var me = null;
+
     function soundCloudAuth() {
       // initialize client with app credentials
       SC.initialize({
@@ -273,11 +275,29 @@
 
       // initiate auth popup
       SC.connect(function() {
-        SC.get('/me', function(me) { 
-          $('#sc').attr('src', 'disconnectwithsc.png');
-          alert('Hello, ' + me.username); 
+        SC.get('/me', function(lme) { 
+          $('#sc').html('<a href="#" class="btn btn-primary" onclick="uploadToSC();">Upload to SoundCloud</a>');
+          loggedIn = true;
+          me = lme
         });
       });
+    }
+
+    function uploadToSC() {
+      if (me) {
+        SC.connect(function() {
+          SC.record({
+            start: function() {
+              window.setTimeout(function() {
+                SC.recordStop();
+                SC.recordUpload({
+                  track: { title: 'This is my sound' }
+                });
+              }, 5000);
+            }
+          }
+        });
+      }
     }
     </script>
 
