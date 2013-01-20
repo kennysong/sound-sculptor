@@ -3897,6 +3897,10 @@ input[type="submit"].btn.btn-mini {
 
 .nav > li > a {
   display: block;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 642bd2522aa197fb3bd7b442c26825b0019bc8cf
 }
 
 .nav > li > a:hover {
@@ -4329,6 +4333,10 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .container {
   width: auto;
+<<<<<<< HEAD
+=======
+  height: 100px;
+>>>>>>> 642bd2522aa197fb3bd7b442c26825b0019bc8cf
 }
 
 .nav-collapse.collapse {
@@ -4537,6 +4545,11 @@ input[type="submit"].btn.btn-mini {
   color: #777777;
   text-decoration: none;
   text-shadow: 0 1px 0 #ffffff;
+<<<<<<< HEAD
+=======
+  line-height: 69px;
+  width: 80px;
+>>>>>>> 642bd2522aa197fb3bd7b442c26825b0019bc8cf
 }
 
 .navbar .nav .dropdown-toggle .caret {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.py[cod]
 
 # C extensions
@@ -34,3 +35,8 @@ nosetests.xml
 .project
 .pydevproject
 .DS_Store
+=======
+.DS_Store
+venv
+*.pyc
+>>>>>>> 642bd2522aa197fb3bd7b442c26825b0019bc8cf
