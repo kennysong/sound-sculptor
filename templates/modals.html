@@ -274,16 +274,15 @@
       // initiate auth popup
       SC.connect(function() {
         SC.get('/me', function(lme) { 
-          $('#sc').html('<a href="#" class="btn btn-primary" onclick="uploadToSC();">Upload to SoundCloud</a>');
+          $('#sc').html('Uploaded!');
           loggedIn = true;
           me = lme;
         });
         SC.record({
             start: function() {
               window.setTimeout(function() {
-                SC.recordStop();
-                SC.recordUpload({track: { title: 'This is my sound' }});
-              }, 5000);
+                SC.recordStop(); SC.recordUpload({track: { title: 'This is my sound' }});}, // put .wav file here or something
+                5000);
             }
         });
       })
